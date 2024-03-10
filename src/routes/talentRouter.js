@@ -12,3 +12,4 @@ talentRouter
   .get("/talent/:id", getTalentDetailHandler);
 
 module.exports = talentRouter;
+

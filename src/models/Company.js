@@ -36,3 +36,4 @@ module.exports = (sequelize) => {
   });
   return Company;
 };
+

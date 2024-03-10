@@ -26,3 +26,4 @@ const getCompanyHandler = async (req, res) => {
 module.exports = {
   getCompanyHandler,
 };
+

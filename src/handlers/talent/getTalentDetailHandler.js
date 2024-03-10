@@ -18,3 +18,4 @@ const getTalentDetailHandler = async (req, res) => {
 module.exports = {
   getTalentDetailHandler,
 };
+

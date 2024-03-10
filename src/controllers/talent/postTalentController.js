@@ -34,3 +34,4 @@ const postTalentController = async ({
 };
 
 module.exports = { postTalentController };
+

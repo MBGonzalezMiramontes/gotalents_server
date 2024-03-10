@@ -8,3 +8,4 @@ companyRouter
   .get("/company", getCompanyHandler);
 
 module.exports = companyRouter;
+

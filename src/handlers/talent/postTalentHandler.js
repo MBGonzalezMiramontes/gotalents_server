@@ -27,3 +27,4 @@ const postTalentHandler = async (req, res) => {
 };
 
 module.exports = { postTalentHandler };
+
