@@ -1,24 +1,20 @@
 const {
   getTalentsController,
-  getTalentByLastNameController,
+  getTalentByLastnameController,
 } = require("../../controllers/talent/getTalentController");
 
 const getTalentsHandler = async (req, res) => {
+  const { lastname } = req.query;
   try {
-    const { name } = req.query;
-    if (name) {
-      const response = await getTalentByLastNameController(name);
-      if (response.length === 0) {
-        return res
-          .status(404)
-          .json({ message: "No se encontraron resultados similares." });
-      }
-      return res.status(200).json(response);
+    if (lastname) {
+      const response = await getTalentByLastnameController(lastname);
+      res.status(200).json(response);
     } else {
       const response = await getTalentsController();
       res.status(200).json(response);
     }
   } catch (error) {
+    console.error("Error in getTalentsHandler:", error);
     return res.status(500).json({ error: error.message });
   }
 };

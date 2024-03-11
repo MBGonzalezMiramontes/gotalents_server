@@ -7,15 +7,15 @@ const postTalentHandler = async (req, res) => {
     const { name, lastname, position, email, phone, cvFile, languageFile } =
       req.body;
 
-    const response = await postTalentController(
+    const response = await postTalentController({
       name,
       lastname,
       position,
       email,
       phone,
       cvFile,
-      languageFile
-    );
+      languageFile,
+    });
 
     if (response.error) {
       return res.status(400).json({ error: response.error });
@@ -27,4 +27,3 @@ const postTalentHandler = async (req, res) => {
 };
 
 module.exports = { postTalentHandler };
-

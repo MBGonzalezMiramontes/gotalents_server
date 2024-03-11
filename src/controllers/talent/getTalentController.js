@@ -1,46 +1,29 @@
 const { Talent } = require("../../db");
-const { Op } = require("sequelize");
 const axios = require("axios");
 
 const getTalentsController = async () => {
-  try {
-    const dataFromDB = await Talent.findAll();
-
-    const url = "http://localhost:5000/gotalents";
-    const response = await axios.get(url);
-    const dataFromApi = response.data.map(formatApiTalentResponse);
-
-    return [...dataFromDB, ...dataFromApi];
-  } catch (error) {
-    throw error;
-  }
+  const allTalents = await Talent.findAll();
+  return allTalents;
 };
 
-const getTalentByLastNameController = async (lastName) => {
-  try {
-    const lowerCaseLastName = lastName.toLowerCase();
-    const condition = lastName
-      ? { lastName: { [Op.iLike]: `%${lastName}%` } }
-      : {};
+const getTalentByLastnameController = async (lastname) => {
+  const lowerCaseLastname = lastname.toLowerCase();
 
-    const url = `http://localhost:5000/gotalents`;
-    const response = await axios.get(url);
-    const dataFromApi = response.data
-      .filter((talent) =>
-        talent.lastName.forename.toLowerCase().includes(lowerCaseLastName)
-      )
-      .map(formatApiTalentResponse);
+  const allTalents = await getTalentsController();
 
-    const dataFromDB = await Talent.findAll({
-      order: [["lastName", "ASC"]],
-      limit: 15,
-    });
+  // Filtrar las talentos por apellido
+  const talentsFiltered = allTalents.filter((talent) =>
+  talent.lastname && talent.lastname.toLowerCase().includes(lowerCaseLastname)
+);
 
-    const combinedResults = [...dataFromDB, ...dataFromApi];
-    return combinedResults;
-  } catch (error) {
-    throw error;
+
+  if (talentsFiltered.length < 1) {
+    throw new Error(
+      `No se encontraron talentos con el apelldio: ${lastname}`
+    );
   }
+
+  return talentsFiltered;
 };
 
 const getTalentByIdController = async (id) => {
@@ -81,7 +64,7 @@ const getTalentByIdController = async (id) => {
 
 module.exports = {
   getTalentsController,
-  getTalentByLastNameController,
+  getTalentByLastnameController,
   getTalentByIdController,
 };
 
