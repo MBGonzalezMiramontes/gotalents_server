@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const talentRouter = Router();
-const { getTalentsHandler } = require("../handlers/talent/getTalentHandler");
 const {
+  getTalentsHandler,
   getTalentDetailHandler,
-} = require("../handlers/talent/getTalentDetailHandler");
+} = require("../handlers/talent/getTalentHandler");
 const { postTalentHandler } = require("../handlers/talent/postTalentHandler");
 
 talentRouter
@@ -12,4 +12,3 @@ talentRouter
   .get("/talent/:id", getTalentDetailHandler);
 
 module.exports = talentRouter;
-

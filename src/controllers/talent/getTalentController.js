@@ -4,7 +4,7 @@ const axios = require("axios");
 
 const getTalentsController = async () => {
   try {
-    const dataFromDB = await Driver.findAll();
+    const dataFromDB = await Talent.findAll();
 
     const url = "http://localhost:5000/gotalents";
     const response = await axios.get(url);
@@ -16,7 +16,7 @@ const getTalentsController = async () => {
   }
 };
 
-const getTalentByLastName = async (lastName) => {
+const getTalentByLastNameController = async (lastName) => {
   try {
     const lowerCaseLastName = lastName.toLowerCase();
     const condition = lastName
@@ -81,7 +81,7 @@ const getTalentByIdController = async (id) => {
 
 module.exports = {
   getTalentsController,
-  getTalentByLastName,
+  getTalentByLastNameController,
   getTalentByIdController,
 };
 

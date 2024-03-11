@@ -1,11 +1,11 @@
 const { Router } = require("express");
 const companyRouter = Router();
-const { getCompanyHandler } = require("../handlers/company/getCompanyHandler");
+const { getCompaniesHandler, getCompanyDetailHandler } = require("../handlers/company/getCompanyHandler");
 const { postCompanyHandler } = require("../handlers/company/postCompanyHandler");
 
 companyRouter
   .post("/company", postCompanyHandler)
-  .get("/company", getCompanyHandler);
+  .get("/company", getCompaniesHandler)
+  .get("/company/:id", getCompanyDetailHandler);
 
 module.exports = companyRouter;
-

@@ -1,5 +1,4 @@
 const { Talent } = require("../../db");
-const { Op } = require("sequelize");
 
 const checkTalentExists = async (email) => {
   const existingTalent = await Talent.findOne({ where: { email: email } });
@@ -30,8 +29,8 @@ const postTalentController = async ({
     cvFile,
     languageFile,
   });
-  
+
+  return talent;
 };
 
 module.exports = { postTalentController };
-

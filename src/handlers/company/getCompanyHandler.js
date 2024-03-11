@@ -1,29 +1,39 @@
 const {
-  getCompanyController,
+  getCompaniesController,
   getCompanyByCompanyName,
+  getCompanyByIdController,
 } = require("../../controllers/company/getCompanyController");
 
-const getCompanyHandler = async (req, res) => {
+const getCompaniesHandler = async (req, res) => {
+  const { companyName } = req.query;
   try {
-    const { companyName } = req.query;
     if (companyName) {
       const response = await getCompanyByCompanyName(companyName);
-      if (response.length === 0) {
-        return res
-          .status(404)
-          .json({ message: "No se encontraron resultados similares." });
-      }
-      return res.status(200).json(response);
+      res.status(200).json(response);
     } else {
-      const response = await getCompanyController();
+      const response = await getCompaniesController();
       res.status(200).json(response);
     }
   } catch (error) {
+    console.error("Error in getCompaniesHandler:", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const getCompanyDetailHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await getCompanyByIdController(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return res.status(404).json({ error: "Compañía ID no encontrado" });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
-  getCompanyHandler,
+  getCompaniesHandler,
+  getCompanyDetailHandler,
 };
-
