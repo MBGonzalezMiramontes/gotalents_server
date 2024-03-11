@@ -1,6 +1,7 @@
 const {
   getTalentsController,
   getTalentByLastnameController,
+  getTalentByIdController
 } = require("../../controllers/talent/getTalentController");
 
 const getTalentsHandler = async (req, res) => {
