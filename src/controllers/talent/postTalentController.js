@@ -14,23 +14,28 @@ const postTalentController = async ({
   cvFile,
   languageFile,
 }) => {
-  const talentExists = await checkTalentExists(email);
+  try {
+    const talentExists = await checkTalentExists(email);
 
-  if (talentExists) {
-    throw new Error("El email del talento ya existe.");
+    if (talentExists) {
+      throw new Error("El email del talento ya existe.");
+    }
+
+    const talent = await Talent.create({
+      name,
+      lastname,
+      position,
+      email,
+      phone,
+      cvFile,
+      languageFile,
+    });
+
+    return talent;
+  } catch (error) {
+    console.error("Error en postTalentController:", error);
+    throw error;
   }
-
-  const talent = await Talent.create({
-    name,
-    lastname,
-    position,
-    email,
-    phone,
-    cvFile,
-    languageFile,
-  });
-
-  return talent;
 };
 
 module.exports = { postTalentController };

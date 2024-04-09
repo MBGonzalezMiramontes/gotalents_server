@@ -17,11 +17,9 @@ const postTalentHandler = async (req, res) => {
       languageFile,
     });
 
-    if (response.error) {
-      return res.status(400).json({ error: response.error });
-    }
     res.status(201).json(response);
   } catch (error) {
+    console.error("Error en postTalentHandler:", error);
     res.status(500).json({ error: error.message });
   }
 };

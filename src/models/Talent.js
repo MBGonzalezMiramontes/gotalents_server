@@ -1,5 +1,4 @@
 const { DataTypes } = require("sequelize");
-const mimeTypes = require("mime-types");
 module.exports = (sequelize) => {
   const Talent = sequelize.define("Talent", {
     id: {
@@ -47,7 +46,7 @@ module.exports = (sequelize) => {
     },
     languageFile: {
       type: DataTypes.BLOB,
-      // allowNull: true,
+      allowNull: true,
       // validate: {
       //   isPDF(value) {
       //     if (!value) {
@@ -63,4 +62,3 @@ module.exports = (sequelize) => {
   });
   return Talent;
 };
-
