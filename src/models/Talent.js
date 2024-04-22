@@ -31,33 +31,11 @@ module.exports = (sequelize) => {
     },
     cvFile: {
       type: DataTypes.BLOB, // Usar BLOB para almacenar archivos binarios (como PDF)
-      allowNull: true,
-      // validate: {
-      //   isPDF(value) {
-      //     if (!value) {
-      //       throw new Error("CV file is required");
-      //     }
-      //     const mimeType = mimeTypes.lookup(value.mimetype);
-      //     if (mimeType !== "application/pdf") {
-      //       throw new Error("File must be in PDF format");
-      //     }
-      //   },
-      // },
+      allowNull: false,
     },
     languageFile: {
       type: DataTypes.BLOB,
       allowNull: true,
-      // validate: {
-      //   isPDF(value) {
-      //     if (!value) {
-      //       throw new Error("Language file is required");
-      //     }
-      //     const mimeType = mimeTypes.lookup(value.mimetype);
-      //     if (mimeType !== "application/pdf") {
-      //       throw new Error("File must be in PDF format");
-      //     }
-      //   },
-      // },
     },
   });
   return Talent;
