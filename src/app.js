@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
+const multer = require("multer");
 
 require("./db.js");
 
@@ -40,7 +41,7 @@ server.options("", (req, res) => {
   res.sendStatus(204); // No content in the response
 });
 
-server.use("/", routes);
+
 
 server.use((err, req, res, next) => {
   const status = err.status || 500;
@@ -48,5 +49,19 @@ server.use((err, req, res, next) => {
   console.error(err);
   res.status(status).send(message);
 });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+server.use("/", routes);
+
+const upload = multer({ storage: storage });
+
 
 module.exports = server;

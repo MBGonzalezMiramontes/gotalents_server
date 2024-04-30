@@ -5,9 +5,11 @@ const {
   getTalentDetailHandler,
 } = require("../handlers/talent/getTalentHandler");
 const { postTalentHandler } = require("../handlers/talent/postTalentHandler");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 talentRouter
-  .post("/talent", postTalentHandler)
+  .post("/talent", upload.any(), postTalentHandler)
   .get("/talent", getTalentsHandler)
   .get("/talent/:id", getTalentDetailHandler);
 

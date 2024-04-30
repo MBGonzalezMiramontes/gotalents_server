@@ -30,11 +30,11 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     cvFile: {
-      type: DataTypes.BLOB, // Usar BLOB para almacenar archivos binarios (como PDF)
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     languageFile: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true,
     },
   });

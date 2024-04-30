@@ -4,7 +4,13 @@ const {
 
 const postCompanyHandler = async (req, res) => {
   try {
+    console.log("Datos recibidos:", req.body);
+   
     const { name, lastname, companyName, email, phone, category } = req.body;
+    const cvFile = req.files.find(file => file.fieldname === 'cvFile');
+    const languageFile = req.files.find(file => file.fieldname === 'languageFile');
+    
+    console.log("Archivos recibidos:", cvFile, languageFile);
 
     const response = await postCompanyController({
       name,
@@ -12,7 +18,7 @@ const postCompanyHandler = async (req, res) => {
       companyName,
       email,
       phone,
-      category
+      category,
     });
 
     if (response.error) {

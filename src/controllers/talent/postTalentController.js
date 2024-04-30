@@ -1,4 +1,6 @@
 const { Talent } = require("../../db");
+const cloudinaryUpload = require("../../utils/cloudinaryUpload");
+const sendTalentEmail = require("../../utils/sendTalentEmail");
 
 const checkTalentExists = async (email) => {
   const existingTalent = await Talent.findOne({ where: { email: email } });
@@ -11,15 +13,22 @@ const postTalentController = async ({
   position,
   email,
   phone,
-  cvFile,
-  languageFile,
+  files,
 }) => {
   try {
-    const talentExists = await checkTalentExists(email);
+    // Llamar a saveFiles con el array de archivos
+    const cvFilePath = files.find((file) => file.fieldname === "cvFile").path;
+    const languageFilePath = files.find(
+      (file) => file.fieldname === "languageFile"
+    ).path;
 
+    const talentExists = await checkTalentExists(email);
     if (talentExists) {
       throw new Error("El email del talento ya existe.");
     }
+
+    const cvUrl = await cloudinaryUpload(cvFilePath);
+    const languageUrl = await cloudinaryUpload(languageFilePath);
 
     const talent = await Talent.create({
       name,
@@ -27,9 +36,14 @@ const postTalentController = async ({
       position,
       email,
       phone,
-      cvFile,
-      languageFile,
+      cvUrl,
+      languageUrl,
     });
+
+    await sendTalentEmail(
+      { name, lastname, position, email, phone },
+      { cvUrl, languageUrl }
+    );
 
     return talent;
   } catch (error) {
