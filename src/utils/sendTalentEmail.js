@@ -7,13 +7,33 @@ const sendTalentEmail = async (talentInfo, fileUrls) => {
 
     const mailOptions = {
       from: EMAIL,
-      to: "bbelu.gonzalez@hotmail.com",
+      to: "apply@gotalentsglobal.com",
       subject: `Nuevo talento registrado ${talentInfo.lastname}, ${talentInfo.name}`,
       html: `
         <html>
           <head>
             <style>
-              /* Estilos */
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              }
+              h1 {
+                color: #333;
+              }
+              p {
+                margin-bottom: 10px;
+              }
+              strong {
+                font-weight: bold;
+              }
             </style>
           </head>
           <body>
@@ -25,12 +45,7 @@ const sendTalentEmail = async (talentInfo, fileUrls) => {
               <p><strong>Email:</strong> ${talentInfo.email}</p>
               <p><strong>Teléfono:</strong> ${talentInfo.phone}</p>
               <p><strong>Enlace a la vista previa del CV:</strong> <a href="${cvPreviewUrl}">${cvPreviewUrl}</a></p>
-              ${
-                fileUrls.languageUrl
-                  ? `<p><strong>Enlace a la vista previa del archivo de idioma:</strong> <a href="${fileUrls.languageUrl}">${fileUrls.languageUrl}</a></p>`
-                  : ""
-              } <!-- Mostramos el enlace al archivo de idioma solo si existe -->
-            </div>
+              </div>
           </body>
         </html>
       `,
@@ -39,7 +54,7 @@ const sendTalentEmail = async (talentInfo, fileUrls) => {
     if (fileUrls.languageUrl) {
       const languagePreviewUrl = `${fileUrls.languageUrl.slice(0, -4)}.png`; // Cambiar la extensión a PNG para una vista previa
 
-      mailOptions.html += `<p><strong>Enlace a la vista previa del archivo de idioma:</strong> <a href="${languagePreviewUrl}">${languagePreviewUrl}</a></p>`;
+      mailOptions.html += `<div class="container"><p><strong>Enlace a la vista previa del archivo :</strong> <a href="${languagePreviewUrl}">${languagePreviewUrl}</a></p></div>`;
     }
 
     // Envía el correo electrónico

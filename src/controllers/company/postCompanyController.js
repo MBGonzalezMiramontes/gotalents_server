@@ -17,7 +17,7 @@ const sendEmail = async (
 ) => {
   const mailOptions = {
     from: EMAIL,
-    to: "bbelu.gonzalez@hotmail.com",
+    to: "hire@gotalentsglobal.com",
     subject: `Una compañía se ha contactado: ${companyName}`,
     html: `
         <html>
