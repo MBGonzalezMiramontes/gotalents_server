@@ -82,6 +82,7 @@ const postCompanyController = async ({
     throw new Error("El email de la compañía ya existe.");
   }
 
+  console.log("Creando nueva compañía en la base de datos...");
   const company = await Company.create({
     name,
     lastname,
@@ -91,7 +92,12 @@ const postCompanyController = async ({
     category,
   });
 
-  sendEmail(name, lastname, companyName, email, phone, category);
+  try {
+    await sendEmail(name, lastname, companyName, email, phone, category);
+  } catch (error) {
+    // Devolver una respuesta de error si ocurre un problema al enviar el correo electrónico
+    throw new Error("Error sending email: " + error.message);
+  }
 
   return company;
 };

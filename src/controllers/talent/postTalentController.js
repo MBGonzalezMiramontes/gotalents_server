@@ -18,9 +18,9 @@ const postTalentController = async ({
   try {
     // Llamar a saveFiles con el array de archivos
     const cvFilePath = files.find((file) => file.fieldname === "cvFile").path;
-    const languageFilePath = files.find(
+    const languageFile = files.find(
       (file) => file.fieldname === "languageFile"
-    ).path;
+    )?.path;
 
     const talentExists = await checkTalentExists(email);
     if (talentExists) {
@@ -28,7 +28,9 @@ const postTalentController = async ({
     }
 
     const cvUrl = await cloudinaryUpload(cvFilePath);
-    const languageUrl = await cloudinaryUpload(languageFilePath);
+    const languageUrl = languageFile
+      ? await cloudinaryUpload(languageFile)
+      : null; // Si hay un archivo de idioma, lo subimos a Cloudinary
 
     const talent = await Talent.create({
       name,
