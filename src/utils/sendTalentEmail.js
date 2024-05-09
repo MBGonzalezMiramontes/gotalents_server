@@ -7,7 +7,8 @@ const sendTalentEmail = async (talentInfo, fileUrls) => {
 
     const mailOptions = {
       from: EMAIL,
-      to: "apply@gotalentsglobal.com",
+      // to: "apply@gotalentsglobal.com",
+      to: "bbelu.gonzalez@hotmail.com",
       subject: `Nuevo talento registrado ${talentInfo.lastname}, ${talentInfo.name}`,
       html: `
         <html>
