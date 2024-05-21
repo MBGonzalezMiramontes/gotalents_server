@@ -4,8 +4,6 @@ const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
 const multer = require("multer");
-const https = require("https");
-const fs = require("fs");
 
 require("./db.js");
 
@@ -50,22 +48,6 @@ server.use((err, req, res, next) => {
   const message = err.message || err;
   console.error(err);
   res.status(status).send(message);
-});
-
-// Ruta de ejemplo
-server.get("/", (req, res) => {
-  res.send("Servidor seguro!");
-});
-
-// Leer los archivos del certificado SSL
-const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/gotalentsglobal.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/gotalentsglobal.com/cert.pem')
-};
-
-// Crear el servidor HTTPS
-https.createServer(options, server).listen(443, () => {
-  console.log("Servidor escuchando en el puerto 443");
 });
 
 const storage = multer.diskStorage({
