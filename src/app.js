@@ -20,6 +20,11 @@ server.use(
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(morgan("dev"));
 server.use(cors({origin: "https://www.gotalentsglobal.com"}));
+
+// Ruta absoluta para servir archivos estáticos
+const reactBuildPath = path.join(__dirname, '../../gotalents_client/gotalents_client/build');
+server.use(express.static(reactBuildPath));
+
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -40,6 +45,8 @@ server.options("", (req, res) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.sendStatus(204); // No content in the response
 });
+
+
 
 
 server.use((err, req, res, next) => {
