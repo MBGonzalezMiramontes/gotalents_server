@@ -41,7 +41,12 @@ server.options("", (req, res) => {
   res.sendStatus(204); // No content in the response
 });
 
-
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "https://www.gotalentsglobal.com",
+  })
+);
 
 server.use((err, req, res, next) => {
   const status = err.status || 500;
@@ -62,6 +67,5 @@ const storage = multer.diskStorage({
 server.use("/", routes);
 
 const upload = multer({ storage: storage });
-
 
 module.exports = server;
