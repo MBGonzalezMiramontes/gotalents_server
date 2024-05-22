@@ -19,7 +19,7 @@ server.use(
 );
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(morgan("dev"));
-server.use(cors());
+server.use(cors({origin: "https://www.gotalentsglobal.com"}));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -41,12 +41,6 @@ server.options("", (req, res) => {
   res.sendStatus(204); // No content in the response
 });
 
-const cors = require("cors");
-app.use(
-  cors({
-    origin: "https://www.gotalentsglobal.com",
-  })
-);
 
 server.use((err, req, res, next) => {
   const status = err.status || 500;
