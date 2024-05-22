@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
 const multer = require("multer");
+const path = require('path');
 
 require("./db.js");
 
