@@ -9,8 +9,8 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
 talentRouter
-  .post("/talent", upload.any(), postTalentHandler)
-  .get("/talent", getTalentsHandler)
-  .get("/talent/:id", getTalentDetailHandler);
+  .post("api/talent", upload.any(), postTalentHandler)
+  .get("api/talent", getTalentsHandler)
+  .get("api/talent/:id", getTalentDetailHandler);
 
 module.exports = talentRouter;

@@ -27,11 +27,12 @@ server.use(morgan("dev"));
 server.use(cors());
 
 // Ruta absoluta para servir archivos estáticos
-const reactBuildPath = path.join(
-  __dirname,
-  "../../../gotalents_client/gotalents_client/build"
-);
-server.use(express.static(reactBuildPath));
+//const reactBuildPath = path.join(
+//  __dirname,
+//  "../../../gotalents_client/gotalents_client/build"
+//);
+//server.use(express.static(reactBuildPath));
+
 
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

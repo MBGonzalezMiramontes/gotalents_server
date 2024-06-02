@@ -4,8 +4,8 @@ const { getCompaniesHandler, getCompanyDetailHandler } = require("../handlers/co
 const { postCompanyHandler } = require("../handlers/company/postCompanyHandler");
 
 companyRouter
-  .post("/company", postCompanyHandler)
-  .get("/company", getCompaniesHandler)
-  .get("/company/:id", getCompanyDetailHandler);
+  .post("/api/company", postCompanyHandler)
+  .get("/api/company", getCompaniesHandler)
+  .get("/api/company/:id", getCompanyDetailHandler);
 
 module.exports = companyRouter;
